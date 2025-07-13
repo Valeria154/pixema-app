@@ -26,6 +26,7 @@ const initialState: MovieState = {
 	error: null,
 	search: initialSearchState,
 }
+
 export const fetchMovieList = createAsyncThunk<MoviesListResponse, number, { rejectValue: string }>(
 	'movie/fetchList',
 	async (page, { rejectWithValue }) => {
@@ -54,16 +55,17 @@ export const fetchMovieSearch = createAsyncThunk<
 	{ items: MovieType[]; totalPages: number },
 	{ query: string; page: number },
 	{ rejectValue: string }
->(
-	'movie/fetchSearch',
-	async ({ query, page }, { rejectWithValue }) => {
-		try {
-			return await requestSearchMovies(query, page)
-		} catch (error: any) {
-			return rejectWithValue(error.message)
+>
+	(
+		'movie/fetchSearch',
+		async ({ query, page }, { rejectWithValue }) => {
+			try {
+				return await requestSearchMovies(query, page)
+			} catch (error: any) {
+				return rejectWithValue(error.message)
+			}
 		}
-	}
-)
+	)
 
 export const movieSlice = createSlice({
 	name: 'movie',

@@ -18,6 +18,7 @@ export function MovieCard({ movie }: Props) {
 		event.stopPropagation() // не срабатывал переход
 		dispatch(toggleFavorite(movie.kinopoiskId))
 	}
+
 	return (
 		<Link
 			to={`/movie/${movie.kinopoiskId}`}

@@ -33,4 +33,3 @@ export interface SearchState {
 	isLoading: boolean
 	error: string | null
 }
-

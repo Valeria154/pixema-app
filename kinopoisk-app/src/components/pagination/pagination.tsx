@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 
 interface PaginationProps {
 	currentPage: number
-	totalPages: number
+	totalPages?: number
 	basePath: string
 }
 
