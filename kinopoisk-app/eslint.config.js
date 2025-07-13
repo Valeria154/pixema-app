@@ -6,18 +6,41 @@ import tseslint from 'typescript-eslint'
 import { globalIgnores } from 'eslint/config'
 
 export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs['recommended-latest'],
-      reactRefresh.configs.vite,
-    ],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-    },
-  },
+	globalIgnores(['dist']),
+	{
+		files: ['**/*.{ts,tsx}'],
+		extends: [
+			js.configs.recommended,
+			tseslint.configs.recommended,
+			reactHooks.configs['recommended-latest'],
+			reactRefresh.configs.vite,
+		],
+		languageOptions: {
+			ecmaVersion: 2020,
+			globals: globals.browser,
+		},
+		rules: {
+			'bem-helper/class-name-case': [
+				'warn',
+				{
+					ignore: [
+						'/^dark:/',
+						'/^hover:/',
+						'/^focus:/',
+						'/^sm:/',
+						'/^md:/',
+						'/^lg:/',
+						'/^xl:/',
+						'/^bg-/',
+						'/^text-/',
+						'/^border-/',
+						'/^grid-/',
+						'/^flex/',
+						'/^col-/',
+						'/^row-/',
+					],
+				},
+			],
+		},
+	},
 ])

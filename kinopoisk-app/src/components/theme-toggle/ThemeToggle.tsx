@@ -4,24 +4,18 @@ import { Sun, Moon } from 'lucide-react'
 export function ThemeToggle() {
 	const [isDark, setIsDark] = useState(false)
 
+	// сразу синхронизация стейт с localStorage
 	useEffect(() => {
-		const theme = localStorage.getItem('theme')
-		setIsDark(theme === 'dark')
+		setIsDark(localStorage.getItem('theme') === 'dark')
 	}, [])
 
 	useEffect(() => {
-		const root = document.documentElement
-		if (isDark) {
-			root.classList.add('dark')
-			localStorage.setItem('theme', 'dark')
-		} else {
-			root.classList.remove('dark')
-			localStorage.setItem('theme', 'light')
-		}
+		document.documentElement.classList.toggle('dark', isDark)
+		localStorage.setItem('theme', isDark ? 'dark' : 'light')
 	}, [isDark])
 
 	function handleToggleTheme() {
-		setIsDark((prev) => !prev)
+		setIsDark((dark) => !dark)
 	}
 
 	return (

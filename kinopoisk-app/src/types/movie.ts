@@ -33,3 +33,9 @@ export interface SearchState {
 	isLoading: boolean
 	error: string | null
 }
+
+//Footer
+export type FooterProps = {
+	appName?: string
+	className?: string
+}
