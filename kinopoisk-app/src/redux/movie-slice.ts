@@ -1,15 +1,17 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { requestMovieList, requestMovie, requestSearchMovies } from '../services/movies'
-import type { MovieType, MoviesListResponse, SearchState } from '../types/movie'
-
-interface MovieState {
-	list: MovieType[]
-	totalPages: number
-	current: MovieType | null
-	isLoading: boolean
-	error: string | null
-	search: SearchState
-}
+import {
+	requestMovieList,
+	requestMovie,
+	requestSearchMovies,
+	fetchFilteredMovies
+} from '../services/movies'
+import type {
+	MovieType,
+	MovieState,
+	MoviesListResponse,
+	SearchState,
+	Filters
+} from '../types/movie'
 
 const initialSearchState: SearchState = {
 	results: [],
@@ -25,6 +27,8 @@ const initialState: MovieState = {
 	isLoading: false,
 	error: null,
 	search: initialSearchState,
+	items: [],
+	filters: {},
 }
 
 export const fetchMovieList = createAsyncThunk<MoviesListResponse, number, { rejectValue: string }>(
@@ -67,10 +71,33 @@ export const fetchMovieSearch = createAsyncThunk<
 		}
 	)
 
+export const fetchMoviesByFilters = createAsyncThunk<
+	MovieType[],
+	Filters,
+	{ rejectValue: string }
+>(
+	'movies/fetchByFilters',
+	async (filters, { rejectWithValue }) => {
+		try {
+			const response = await fetchFilteredMovies(filters)
+			return response.items
+		} catch (error: any) {
+			return rejectWithValue(error.message)
+		}
+	}
+)
+
 export const movieSlice = createSlice({
 	name: 'movie',
 	initialState,
-	reducers: {},
+	reducers: {
+		setFilters(state, action: PayloadAction<Filters>) {
+			state.filters = action.payload
+		},
+		clearFilteredItems(state) {
+			state.items = []
+		}
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchMovieList.pending, (state) => {
@@ -113,8 +140,20 @@ export const movieSlice = createSlice({
 					state.search.totalPages = action.payload.totalPages
 				}
 			)
-
+			.addCase(fetchMoviesByFilters.pending, state => {
+				state.isLoading = true
+				state.error = null
+			})
+			.addCase(fetchMoviesByFilters.rejected, (state, action) => {
+				state.isLoading = false
+				state.error = action.error.message || 'Error fetching movies'
+			})
+			.addCase(fetchMoviesByFilters.fulfilled, (state, action: PayloadAction<MovieType[]>) => {
+				state.items = action.payload
+				state.isLoading = false
+			})
 	}
 })
 
+export const { setFilters, clearFilteredItems } = movieSlice.actions
 export const movieReducer = movieSlice.reducer

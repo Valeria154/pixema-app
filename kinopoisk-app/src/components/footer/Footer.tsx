@@ -1,5 +1,3 @@
-import type { FooterProps } from '../../types/movie'
-
 export function Footer() {
 	const appName = 'Pixema App'
 

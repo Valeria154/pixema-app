@@ -5,7 +5,7 @@ import {
 	movieByIdEndpoint,
 	searchByKeyWordEndpoint
 } from '../config/api/api'
-import type { MovieType, MoviesListResponse, SearchResponse } from '../types/movie'
+import type { MovieType, MoviesListResponse, SearchResponse, Filters } from '../types/movie'
 
 // набор параметров для запроса списка фильмов
 const defaultParams = {
@@ -17,7 +17,14 @@ const defaultParams = {
 	yearTo: 3000,
 }
 
-export async function requestMovieList(page = 1): Promise<{ items: MovieType[]; totalPages: number }> {
+const typeMap = {
+	movie: 'FILM',
+	series: 'TV_SERIES',
+	episode: 'MINI_SERIES',
+	game: 'TV_SHOW',
+}
+
+export async function requestMovieList(page = 1): Promise<Promise<MoviesListResponse>> {
 	try {
 		const response = await get<MoviesListResponse>(baseUrl + moviesEndpoint, {
 			params: {
@@ -25,10 +32,7 @@ export async function requestMovieList(page = 1): Promise<{ items: MovieType[]; 
 				page,
 			},
 		})
-		return {
-			items: response.data.items,
-			totalPages: response.data.totalPages ?? 1
-		}
+		return response.data
 	} catch (error: unknown) {
 		console.error('requestMovieList error:', error)
 		return { items: [], totalPages: 1 }
@@ -57,4 +61,17 @@ export async function requestSearchMovies(keyword: string, page = 1): Promise<{ 
 		console.error('requestSearchMovies error:', error)
 		return { items: [], totalPages: 1 }
 	}
+}
+
+export async function fetchFilteredMovies({ type, year, page = 1 }: Filters & { page?: number }) {
+	const response = await get(baseUrl + moviesEndpoint, {
+		params: {
+			type: type ? typeMap[type] : undefined,
+			yearFrom: year,
+			yearTo: year,
+			page,
+		},
+	})
+
+	return response.data
 }

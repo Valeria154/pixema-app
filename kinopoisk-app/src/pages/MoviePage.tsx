@@ -5,7 +5,7 @@ import { MovieDetail } from '../components/movie-detail/MovieDetail'
 import type { MovieType } from '../types/movie'
 
 export function MoviePage() {
-	const { id } = useParams()
+	const { id } = useParams<{ id: string }>()
 	const [movie, setMovie] = useState<MovieType | null>(null)
 	const [loading, setLoading] = useState(true)
 
