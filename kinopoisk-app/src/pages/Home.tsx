@@ -1,7 +1,7 @@
 import { useParams } from 'react-router'
 import { useAppSelector } from '../hooks/useAppSelector'
 import { MovieGrid } from '../components/movie-grid/MovieGrid'
-import { Pagination } from '../components/pagination/pagination'
+import { Pagination } from '../components/pagination/Pagination'
 
 export function Home() {
 	const { currentPage } = useParams<{ currentPage?: string }>()

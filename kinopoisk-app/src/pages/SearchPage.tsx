@@ -4,9 +4,8 @@ import { useAppDispatch } from '../hooks/useAppDispatch'
 import { useAppSelector } from '../hooks/useAppSelector'
 import { fetchMovieSearch } from '../redux/movie-slice'
 import { MovieCard } from '../components/movie-card/MovieCard'
-import { Pagination } from '../components/pagination/pagination'
+import { Pagination } from '../components/pagination/Pagination'
 import type { RootState } from '../app/store'
-import type { SearchState } from '../types/movie'
 
 export function SearchPage() {
 	const { query, currentPage } = useParams<{ query: string; currentPage?: string }>()

@@ -1,7 +1,7 @@
 import { useParams } from 'react-router'
 import { MovieCard } from '../components/movie-card/MovieCard'
 import { useAppSelector } from '../hooks/useAppSelector'
-import { Pagination } from '../components/pagination/pagination'
+import { Pagination } from '../components/pagination/Pagination'
 
 export function FavoritePage() {
 	const { currentPage } = useParams<{ currentPage?: string }>()
