@@ -1,16 +1,10 @@
-import { useEffect } from 'react'
 import { Outlet } from 'react-router'
 import { Header } from '../header/Header'
 import { NavBar } from '../nav-bar/NavBar'
 import { Container } from '../container/Container'
+import { Footer } from '../footer/Footer'
 
 export function Layout() {
-	// Установка темы при инициализации из localStorage
-	useEffect(() => {
-		const theme = localStorage.getItem('theme')
-		if (theme === 'dark') document.documentElement.classList.add('dark')
-	}, [])
-
 	return (
 		<div className="min-h-screen flex flex-col bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
 			<Header />
@@ -24,9 +18,7 @@ export function Layout() {
 					</Container>
 				</section>
 			</main>
-			<footer className="text-center p-4 bg-gray-100">
-				© All Rights Reserved {new Date().getFullYear()}
-			</footer>
+			<Footer />
 		</div>
 	)
 }

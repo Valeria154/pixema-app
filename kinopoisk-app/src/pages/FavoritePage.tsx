@@ -8,8 +8,11 @@ export function FavoritePage() {
 	const pageNum = Number(currentPage) || 1
 
 	const favoriteIds = useAppSelector(state => state.favorites.favorites)
-	const allMovies = useAppSelector(state => state.movie.list)
-
+	const allMovies = useAppSelector(state => [
+		...state.movie.list,
+		...state.movie.items,
+		...state.movie.search.results,
+	])
 	const perPage = 20
 	const start = (pageNum - 1) * perPage
 	const pagedIds = favoriteIds.slice(start, start + perPage)

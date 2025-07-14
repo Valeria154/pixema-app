@@ -4,14 +4,11 @@ import { SearchBar } from '../search-bar/SearchBar'
 import { ThemeToggle } from '../theme-toggle/ThemeToggle'
 import { BurgerMenu } from '../burger-menu/BurgerMenu'
 
-
 interface HeaderProps {
 	onSearch?: (query: string) => void
 	userName?: string
 	avatarUrl?: string
 }
-
-
 
 export function Header() {
 	return (

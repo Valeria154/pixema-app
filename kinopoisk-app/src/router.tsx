@@ -21,6 +21,10 @@ const routes: RouteObject[] = [
 						element: <Home />,
 					},
 					{
+						path: '/movies/filtered/:currentPage',
+						element: <Home />
+					},
+					{
 						path: '/movies/favorite/:currentPage',
 						element: <FavoritePage />
 					},

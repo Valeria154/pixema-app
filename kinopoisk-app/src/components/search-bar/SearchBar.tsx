@@ -19,6 +19,7 @@ export function SearchBar() {
 
 		const encoded = encodeURIComponent(term)//кодирует строку
 		navigate(`/movies/search/${encoded}/1`) //попадаем на 1 страницу поиска
+		setSearchQuery('')
 	}
 
 	return (

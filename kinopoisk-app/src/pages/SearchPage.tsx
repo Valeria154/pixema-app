@@ -29,7 +29,7 @@ export function SearchPage() {
 			<h2 className="mb-4 text-xl">Results for “{query}”</h2>
 			<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
 				{results.map(m => (
-					<MovieCard key={m.kinopoiskId} movie={m} />
+					<MovieCard key={m.kinopoiskId ?? `${m.nameEn}-${m.year}`} movie={m} />
 				))}
 			</div>
 			<Pagination

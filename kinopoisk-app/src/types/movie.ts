@@ -14,7 +14,6 @@ export interface MovieType {
 	description?: string
 	ratingAgeLimits?: string
 	query: string
-
 }
 
 export interface MoviesListResponse {
@@ -34,3 +33,27 @@ export interface SearchState {
 	error: string | null
 }
 
+//Movies-slice
+export type MovieFilterType = 'movie' | 'series' | 'episode' | 'game'
+
+export interface Filters {
+	type?: MovieFilterType
+	year?: number
+	page?: number
+}
+
+export interface MovieState {
+	list: MovieType[]
+	totalPages: number
+	current: MovieType | null
+	isLoading: boolean
+	error: string | null
+	search: SearchState
+	items: MovieType[]
+	filters: Filters
+}
+//Footer
+export type FooterProps = {
+	appName?: string
+	className?: string
+}

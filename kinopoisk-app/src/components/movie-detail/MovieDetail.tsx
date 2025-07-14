@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router'
+import { ArrowLeft } from 'lucide-react'
 import type { MovieType } from '../../types/movie'
 
 interface MovieDetailProps {
@@ -5,8 +7,21 @@ interface MovieDetailProps {
 }
 
 export function MovieDetail({ movie }: MovieDetailProps) {
+	const navigate = useNavigate()
+
+	function goBack() {
+		navigate(-1)
+	}
+
 	return (
-		<div>
+		<div >
+			<button
+				onClick={goBack}
+				className="m-4 flex items-center gap-2 bg-gray-900 bg-opacity-70 text-white px-3 py-1 rounded hover:bg-opacity-90 transition"
+			>
+				<ArrowLeft size={16} />
+				<span>go back</span>
+			</button>
 			<img
 				src={movie.posterUrl}
 				alt={movie.nameEn}

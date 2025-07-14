@@ -1,16 +1,15 @@
 import type { FC } from 'react'
-import { buildSchemePagination } from '../../utils/buildPagination'
 import { Link } from 'react-router'
 
 interface PaginationProps {
 	currentPage: number
-	totalPages: number
+	totalPages?: number
 	basePath: string
 }
 
-export const Pagination: FC<PaginationProps> = ({ currentPage, basePath }) => {
+export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, basePath }) => {
 	const prevPage = currentPage > 1 ? currentPage - 1 : null
-	const nextPage = currentPage + 1
+	const nextPage = totalPages && currentPage < totalPages ? currentPage + 1 : null
 
 	return (
 		<div className="flex justify-center items-center gap-4 mt-6">
@@ -38,13 +37,3 @@ export const Pagination: FC<PaginationProps> = ({ currentPage, basePath }) => {
 		</div>
 	)
 }
-// export function renderPagination() {
-// 	const pageCount = Math.ceil(total / perPage)
-// 	const pagination = buildSchemePagination
-
-// 	return (
-// 		<div>
-// 			{renderPagination()}
-// 		</div>
-// 	)
-// }
